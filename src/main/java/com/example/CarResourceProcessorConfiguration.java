@@ -10,6 +10,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 
+import com.example.entities.Car;
+
 @Configuration
 public class CarResourceProcessorConfiguration {
 	

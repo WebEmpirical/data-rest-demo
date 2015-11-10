@@ -29,10 +29,10 @@ class InventoryController {
 		this.inventoryService = inventoryService
 	}
 	
-	@RequestMapping(value="/inventory/search/category",method=RequestMethod.GET)
+	@RequestMapping(value="/inventory/search/categoryName",method=RequestMethod.GET)
 	@ResponseBody
 	ResponseEntity<Resources<Resource>> list(@RequestParam("name") String name) {
-		Link link = new Link(entityLinks.linkFor(Inventory.class).toString() + "/search/list")
+		Link link = new Link(entityLinks.linkFor(Inventory.class).toString() + "/search/categoryName{?name}")
 		return new ResponseEntity<Resources<Resource>>(new Resources<Resource>(inventoryService.list(name), link),HttpStatus.OK)
 	}
 }

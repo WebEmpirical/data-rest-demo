@@ -9,7 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import org.springframework.data.rest.core.annotation.RestResource
 
 import com.example.entities.Category
-import com.example.entities.InventoryDetail
 
 @RepositoryRestResource(collectionResourceRel="categories", path="categories")
 interface CategoryRepository extends JpaRepository<Category, Long> {

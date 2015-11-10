@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Index
-import javax.persistence.JoinColumn
 import javax.persistence.Table
 
 @Entity
@@ -19,7 +18,6 @@ class Inventory implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id
 	
-	@JoinColumn(nullable=false,table='categories',referencedColumnName='id')
 	@Column
 	long category
 	

@@ -6,6 +6,7 @@ import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.OneToMany
 import javax.persistence.Table
 
@@ -25,7 +26,8 @@ class Category implements Serializable {
 	@Column
 	String description
 	
-	@OneToMany(targetEntity=Inventory.class, mappedBy='category', fetch=FetchType.LAZY)
+	@OneToMany(targetEntity=Inventory.class, fetch=FetchType.LAZY)
+	@JoinColumn(name="category")
 	List<Inventory> inventory
 	
 }

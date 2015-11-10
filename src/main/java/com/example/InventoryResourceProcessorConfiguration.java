@@ -24,7 +24,7 @@ public class InventoryResourceProcessorConfiguration {
 
 			@Override
 			public Resource<Inventory> process(Resource<Inventory> resource) {
-				return null;
+				return resource;
 			}
 			
 		};
@@ -37,7 +37,7 @@ public class InventoryResourceProcessorConfiguration {
 			
 			@Override
 			public RepositorySearchesResource process(RepositorySearchesResource resource) {
-				resource.add(new Link(entityLinks.linkFor(Inventory.class, "name").toString() + "/search/categoryName{?name}", "categoryName"));
+				resource.add(new Link(entityLinks.linkFor(Inventory.class, "name","page","size").toString() + "/search/categoryName{?name,page,size}", "categoryName"));
 				return resource;
 			}
 			
@@ -50,7 +50,7 @@ public class InventoryResourceProcessorConfiguration {
 			
 			@Override
 			public RepositoryLinksResource process(RepositoryLinksResource resource) {
-				return null;
+				return resource;
 			}
 			
 		};

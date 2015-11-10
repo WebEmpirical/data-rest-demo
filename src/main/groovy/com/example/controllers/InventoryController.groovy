@@ -31,8 +31,8 @@ class InventoryController {
 	
 	@RequestMapping(value="/inventory/search/categoryName",method=RequestMethod.GET)
 	@ResponseBody
-	ResponseEntity<Resources<Resource>> list(@RequestParam("name") String name) {
-		Link link = new Link(entityLinks.linkFor(Inventory.class).toString() + "/search/categoryName{?name}")
-		return new ResponseEntity<Resources<Resource>>(new Resources<Resource>(inventoryService.list(name), link),HttpStatus.OK)
+	ResponseEntity<Resources<Resource>> inventoryByCategoryName(@RequestParam("name") String name, @RequestParam(value="page",required=false,defaultValue="1") String page, @RequestParam(value="size",required=false,defaultValue="20") String size) {
+		Link link = new Link(entityLinks.linkFor(Inventory.class, "name","page","size").toString() + "/search/categoryName{?name,page,size}","categoryName")
+		return new ResponseEntity<Resources<Resource>>(new Resources<Resource>(inventoryService.inventoryByCategoryName(name,Integer.parseInt(page),Integer.parseInt(size)), link),HttpStatus.OK)
 	}
 }

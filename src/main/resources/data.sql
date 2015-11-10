@@ -1,7 +1,3 @@
-insert into cars values(1,'Ford','Mustang','Sports Car');
-insert into cars values(2,'Ford','F150','Truck');
-insert into cars values(3,'Mercedes','S600','Sedan');
-
 insert into categories(id,name,description) values(1,'Computers','Laptops, Desktops, etc...');
 insert into categories(id,name,description) values(2,'Hand Held Devices','Tablets, MP3 Players, Arm Bands & Watches, etc...');
 insert into categories(id,name,description) values(3,'Phones','Android, Iphone, Windows, and Blackberry');

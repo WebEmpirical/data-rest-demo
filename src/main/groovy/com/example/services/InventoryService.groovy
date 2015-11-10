@@ -17,9 +17,9 @@ class InventoryService {
 	}
 
 
-	List<Object> list(String name) {
+	List<Object> inventoryByCategoryName(String name,int page,int size) {
 		def qry = "select new map(i.id as id, i.item as item, c.name as category) from Category c join c.inventory i where upper(c.name) like upper(:name+'%')"
-		List<Object> results = em.createQuery(qry).setParameter('name',name).getResultList()
+		List<Object> results = em.createQuery(qry).setParameter('name',name).setFirstResult((page-1)*size).setMaxResults(size).getResultList()
 		return results
 	}
 

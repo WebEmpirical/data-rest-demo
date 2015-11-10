@@ -7,29 +7,15 @@ import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.data.rest.webmvc.RepositorySearchesResource;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 
 import com.example.entities.Inventory;
 
 @Configuration
-public class InventoryResourceProcessorConfiguration {
+public class ResourceProcessorConfiguration {
 	
 	@Autowired
 	EntityLinks entityLinks;
-	
-	@Bean
-	public ResourceProcessor<Resource<Inventory>> resource() {
-		return new ResourceProcessor<Resource<Inventory>>() {
-
-			@Override
-			public Resource<Inventory> process(Resource<Inventory> resource) {
-				return resource;
-			}
-			
-		};
-		
-	}
 	
 	@Bean
 	public ResourceProcessor<RepositorySearchesResource> repositorSearchesProcessor() {

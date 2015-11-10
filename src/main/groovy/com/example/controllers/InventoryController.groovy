@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.rest.webmvc.RepositoryRestController
 import org.springframework.hateoas.EntityLinks
 import org.springframework.hateoas.Link
-import org.springframework.hateoas.Resource
-import org.springframework.hateoas.PagedResources.PageMetadata;
 import org.springframework.hateoas.PagedResources
+import org.springframework.hateoas.Resource
+import org.springframework.hateoas.ResourceProcessor
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 
-import com.example.dto.Page
 import com.example.entities.Inventory
 import com.example.services.InventoryService
 
 @RepositoryRestController
-class InventoryController {
+class InventoryController implements ResourceProcessor<Resource<Inventory>> {
 	
 	EntityLinks entityLinks
 	InventoryService inventoryService
@@ -37,5 +36,11 @@ class InventoryController {
 		Link link = new Link(entityLinks.linkFor(Inventory.class, "name","page","size").toString() + "/search/categoryName{?name,page,size}","categoryName")
 		def result = inventoryService.inventoryByCategoryName(name,Integer.parseInt(page),Integer.parseInt(size))
 		return new ResponseEntity<PagedResources>(new PagedResources(result[0], result[1], link),HttpStatus.OK)
+	}
+
+	@Override
+	public Resource<Inventory> process(Resource<Inventory> resource) {
+		// TODO Auto-generated method stub
+		return resource;
 	}
 }

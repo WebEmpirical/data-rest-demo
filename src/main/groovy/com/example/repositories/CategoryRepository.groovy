@@ -23,8 +23,4 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
 	@Query("select c from Category c where upper(c.name) like upper(:name+'%')")
 	Page queryByNameStartsWithIgnoreCase(@Param("name") String name, Pageable pageable)
 	
-	@RestResource(path="inventoryByCategory",rel="inventoryByCategory")
-	@Query("select new com.example.entities.InventoryDetail(i.id, i.item, c.name) from Category c join c.inventory i where upper(c.name) like upper(:name+'%')")
-	Page<InventoryDetail> queryByCategoryStartsWithIgnoreCase(@Param("name") String name, Pageable pageable)
-	
 }

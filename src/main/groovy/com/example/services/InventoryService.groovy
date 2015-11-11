@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 import com.example.dto.InventoryDetail
-import com.example.dto.Page
 
 @Service
 class InventoryService {
@@ -58,7 +57,7 @@ class InventoryService {
 		}
 		// strip the comma at the very end of the string
 		qry = qry.substring(0, qry.length() -1)
-		// we need a count query to determine the number of pages
+		// we need a count query to determine the number of records
 		def cnt = """
 					select count(i)
 					from Category c
@@ -72,8 +71,8 @@ class InventoryService {
 		Long totalRecords = em.createQuery(cnt).setParameter('name',name).getSingleResult()
 		// get the results and pass in our parameter(s) along with the page number and result size
 		List<InventoryDetail> results = em.createQuery(qry).setParameter('name',name).setFirstResult(number).setMaxResults(size).getResultList()
-		// return 2 items: results and PageMetadata
-		return [results,new Page(size,totalRecords,number)]
+		// return 2 items: results and totalRecords
+		return [results,totalRecords]
 	}
 
 }

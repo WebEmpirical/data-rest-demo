@@ -1,7 +1,5 @@
 package com.example.dto
 
-import javax.persistence.Column
-
 class InventoryDetail {
 	
 	long id

@@ -6,3 +6,4 @@ insert into inventory(id,category,item,description,price,on_hand) values(1,1,'Th
 insert into inventory(id,category,item,description,price,on_hand) values(2,1,'Macbook Pro','Apple Laptop, 16GB Ram, i7 5th Generation',1999,10);
 insert into inventory(id,category,item,description,price,on_hand) values(3,2,'Google Nexus 9','9" Tablet, WiFi & GSM',399,10);
 insert into inventory(id,category,item,description,price,on_hand) values(4,2,'Ipad Air II','10" Tablet, WiFi Only',499,8);
+insert into inventory(id,category,item,description,price,on_hand) values(5,1,'Toshiba Satellite','Toshiba Laptop, 6GB Ram, i7 5th Generation',799,10);

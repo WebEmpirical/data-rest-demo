@@ -32,9 +32,14 @@ class InventoryController implements ResourceProcessor<Resource<Inventory>> {
 	
 	@RequestMapping(value="/inventory/search/categoryName",method=RequestMethod.GET)
 	@ResponseBody
-	ResponseEntity<PagedResources> inventoryByCategoryName(@RequestParam("name") String name, @RequestParam(value="page",required=false,defaultValue="1") String page, @RequestParam(value="size",required=false,defaultValue="20") String size) {
+	ResponseEntity<PagedResources> inventoryByCategoryName(
+			@RequestParam("name") String name,
+			@RequestParam(value="page",required=false,defaultValue="1") String page,
+			@RequestParam(value="size",required=false,defaultValue="20") String size,
+			@RequestParam(value="sort",required=false,defaultValue="_NONE_") String sort
+	) {
 		Link link = new Link(entityLinks.linkFor(Inventory.class, "name","page","size").toString() + "/search/categoryName{?name,page,size}","categoryName")
-		def result = inventoryService.inventoryByCategoryName(name,Integer.parseInt(page),Integer.parseInt(size))
+		def result = inventoryService.inventoryByCategoryName(name,Integer.parseInt(page),Integer.parseInt(size),sort)
 		return new ResponseEntity<PagedResources>(new PagedResources(result[0], result[1], link),HttpStatus.OK)
 	}
 

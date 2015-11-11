@@ -20,7 +20,7 @@ class InventoryService {
 	}
 
 
-	Object inventoryByCategoryName(String name,int page,int size) {
+	Object inventoryByCategoryName(String name,int page,int size,String sort) {
 		def qry = """
 					select
 					new com.example.dto.InventoryDetail(
@@ -36,6 +36,19 @@ class InventoryService {
 					join c.inventory i
 					where upper(c.name) like upper(:name+'%')
 		"""
+		
+		def token = sort.tokenize(',')
+
+		if(token.size() > 1) {
+			qry += "order by "
+			token.eachWithIndex { it, i ->
+				if(i%2==0){
+					qry += it + ' ' + token[i+1] + ','
+				}
+			}
+		}
+
+		qry = qry.substring(0, qry.length() -1)
 		
 		def cnt = """
 					select count(i)

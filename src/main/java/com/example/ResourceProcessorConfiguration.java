@@ -23,7 +23,7 @@ public class ResourceProcessorConfiguration {
 			
 			@Override
 			public RepositorySearchesResource process(RepositorySearchesResource resource) {
-				resource.add(new Link(entityLinks.linkFor(Inventory.class, "name","page","size").toString() + "/search/categoryName{?name,page,size}", "categoryName"));
+				resource.add(new Link(entityLinks.linkFor(Inventory.class, "name","page","size","sort").toString() + "/search/categoryName{?name,page,size,sort}", "categoryName"));
 				return resource;
 			}
 			

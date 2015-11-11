@@ -20,6 +20,7 @@ import com.example.services.InventoryService
 @RepositoryRestController
 class InventoryController implements ResourceProcessor<Resource<Inventory>> {
 	
+	// makes building links easier and more flexible
 	EntityLinks entityLinks
 	InventoryService inventoryService
 	
@@ -30,6 +31,9 @@ class InventoryController implements ResourceProcessor<Resource<Inventory>> {
 		this.inventoryService = inventoryService
 	}
 	
+	// the value should match our /search/... api since we added this to the RepositorySearchesResource in our config class
+	// name is required, the other request params are optional with default values
+	// using the PagedResources here so that we can have _embedded, _links, and page as a result
 	@RequestMapping(value="/inventory/search/categoryName",method=RequestMethod.GET)
 	@ResponseBody
 	ResponseEntity<PagedResources> inventoryByCategoryName(
@@ -38,11 +42,15 @@ class InventoryController implements ResourceProcessor<Resource<Inventory>> {
 			@RequestParam(value="size",required=false,defaultValue="20") String size,
 			@RequestParam(value="sort",required=false,defaultValue="_NONE_") String sort
 	) {
-		Link link = new Link(entityLinks.linkFor(Inventory.class, "name","page","size").toString() + "/search/categoryName{?name,page,size}","categoryName")
-		def result = inventoryService.inventoryByCategoryName(name,Integer.parseInt(page),Integer.parseInt(size),sort)
-		return new ResponseEntity<PagedResources>(new PagedResources(result[0], result[1], link),HttpStatus.OK)
+		// this is the link that will be part of our HAL/JSON documentation
+		Link link = new Link(entityLinks.linkFor(Inventory.class, "name","page","size","sort").toString() + "/search/categoryName{?name,page,size,sort}","categoryName")
+		// we're actually returning 2 values from the service, assign them to the temp variable for later use
+		def temp = inventoryService.inventoryByCategoryName(name,Integer.parseInt(page),Integer.parseInt(size),sort)
+		// returning the response as a PagedResources(the actual data, the PagedMetadata object, and the link(s))
+		return new ResponseEntity<PagedResources>(new PagedResources(temp[0], temp[1], link),HttpStatus.OK)
 	}
-
+	
+	// this is where we would put _links for individual "items" to be embedded and made available from them
 	@Override
 	public Resource<Inventory> process(Resource<Inventory> resource) {
 		// TODO Auto-generated method stub

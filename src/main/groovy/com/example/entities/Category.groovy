@@ -26,6 +26,8 @@ class Category implements Serializable {
 	@Column
 	String description
 	
+	// defines the relationship with Inventory and identifies the join column in the related entity
+	// returns a List of Inventory objects
 	@OneToMany(targetEntity=Inventory.class, fetch=FetchType.LAZY)
 	@JoinColumn(name="category")
 	List<Inventory> inventory

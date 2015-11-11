@@ -14,9 +14,12 @@ import com.example.entities.Inventory;
 @Configuration
 public class ResourceProcessorConfiguration {
 	
+	// use this to build links that are flexible and portable
 	@Autowired
 	EntityLinks entityLinks;
 	
+	// this ResourceProcessor is used to add links to the various entities to the /search/... api
+	// we can use this as a global way of injecting links for any entity
 	@Bean
 	public ResourceProcessor<RepositorySearchesResource> repositorSearchesProcessor() {
 		return new ResourceProcessor<RepositorySearchesResource>() {
@@ -30,6 +33,8 @@ public class ResourceProcessorConfiguration {
 		};
 	}
 	
+	// this ResourceProcessor is used to add links to the root HAL/JSON document
+	// not specific to an entity, can be http://my-domain.com/api/method...
 	@Bean
 	public ResourceProcessor<RepositoryLinksResource> repositorLinksProcessor() {
 		return new ResourceProcessor<RepositoryLinksResource>() {

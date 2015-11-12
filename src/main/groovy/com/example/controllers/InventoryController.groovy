@@ -50,14 +50,8 @@ class InventoryController implements ResourceProcessor<Resource<Inventory>> {
 	) {
 		// this is the link that will be part of our HAL/JSON documentation
 		Link link = new Link(entityLinks.linkFor(Inventory.class, "name","page","size","sort").toString() + "/search/categoryName{?name,page,size,sort}").withSelfRel()
-		// we're actually returning 2 values from the service, assign them to the temp variable for later use
-		def (p,s) = [Integer.parseInt(page),Integer.parseInt(size)]
-		def (resultList,totalRecords) = inventoryService.inventoryByCategoryName(name,p,s,sort)
-		println "****************************************"
-		println totalRecords
-		println "****************************************"
 		// returning the response as a PagedResources using the PagedResourcesAssembler to build the first,pref,next,last _links
-		return new ResponseEntity<PagedResources>(pagedResourcesAssembler.toResource(new PageImpl<InventoryDetail>(resultList,new PageRequest(p-1,s),totalRecords),link),HttpStatus.OK)
+		return new ResponseEntity<PagedResources>(pagedResourcesAssembler.toResource(inventoryService.inventoryByCategoryName(name,Integer.parseInt(page),Integer.parseInt(size),sort),link),HttpStatus.OK)
 	}
 	
 	// this is where we would put _links for individual "items" to be embedded and made available from them

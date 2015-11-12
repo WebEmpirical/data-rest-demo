@@ -3,6 +3,8 @@ package com.example.services
 import javax.persistence.EntityManager
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 import com.example.dto.InventoryDetail
@@ -67,18 +69,12 @@ class InventoryService {
 		// define the actual page number here dynamically so that we have flexibility
 		// page numbers are 0 based indexes
 		int number = (page-1)*size
-		println "****************************************"
-		println number
-		println "****************************************"
 		// this is the totalRecords from our cnt query
 		Long totalRecords = em.createQuery(cnt).setParameter('name',name).getSingleResult()
 		// get the results and pass in our parameter(s) along with the page number and result size
 		List<InventoryDetail> results = em.createQuery(qry).setParameter('name',name).setFirstResult(number).setMaxResults(size).getResultList()
-		println "****************************************"
-		println results.size()
-		println "****************************************"
-		// return 2 items: results and totalRecords
-		return [results,totalRecords]
+		// return a Pageable object
+		return new PageImpl<InventoryDetail>(results,new PageRequest(page-1,size),totalRecords)
 	}
 
 }

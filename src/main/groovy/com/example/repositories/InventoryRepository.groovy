@@ -14,6 +14,6 @@ interface InventoryRepository extends JpaRepository<Inventory, Long> {
 	
 	// finding inventory using the category id
 	@RestResource(path="category",rel="category")
-	Page findByCategory(@Param("id") long id, Pageable pageable)
+	Page<Inventory> findByCategory(@Param("id") long id, Pageable pageable)
 	
 }

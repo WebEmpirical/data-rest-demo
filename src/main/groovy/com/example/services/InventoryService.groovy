@@ -56,9 +56,9 @@ class InventoryService {
 					qry += it + ' ' + token[i+1] + ','
 				}
 			}
+			// strip the comma at the very end of the string
+			qry = qry.substring(0, qry.length() -1)
 		}
-		// strip the comma at the very end of the string
-		qry = qry.substring(0, qry.length() -1)
 		// we need a count query to determine the number of records
 		def cnt = """
 					select count(i)
